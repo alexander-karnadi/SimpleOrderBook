@@ -1,0 +1,52 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace OrderBook
+{
+    public interface IOrderBookPrinter
+    {
+        string Print(int seqNumber, IOrderBook orderBook);
+    }
+    
+    public sealed class OrderBookPrinter : IOrderBookPrinter
+    {
+        private IDictionary<string, HashSet<int>> _lastTopBuy = new Dictionary<string, HashSet<int>>();
+        private IDictionary<string, HashSet<int>> _lastTopSell = new Dictionary<string, HashSet<int>>();
+        private readonly int _level;
+
+        public OrderBookPrinter(int level)
+        {
+            _level = level;
+        }
+        
+        public string Print(int seqNumber, IOrderBook orderBook)
+        {
+            var latestTopBuy = orderBook.GetTopBuy(_level).ToList();
+            var latestTopSell = orderBook.GetTopSell(_level).ToList();
+            var latestTopBuyHash = latestTopBuy.Select(_ => _.GetHashCode()).ToHashSet();
+            var latestTopSellHash = latestTopSell.Select(_ => _.GetHashCode()).ToHashSet();
+
+            if (latestTopBuyHash.SetEquals(_lastTopBuy) && latestTopSellHash.SetEquals(_lastTopSell))
+            {
+                return string.Empty;
+            }
+
+            _lastTopBuy = latestTopBuyHash;
+            _lastTopSell = latestTopSellHash;
+            
+            var stringBuilder = new StringBuilder();
+            stringBuilder
+                .Append(seqNumber)
+                .Append(", ")
+                .Append(orderBook.Symbol)
+                .Append(", [")
+                .Append(string.Join(", ", latestTopBuy))
+                .Append("], [")
+                .Append(string.Join(", ", latestTopSell))
+                .Append("]");
+
+            return stringBuilder.ToString();
+        }
+    }
+}

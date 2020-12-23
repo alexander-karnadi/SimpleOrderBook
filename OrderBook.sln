@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBook", "OrderBook\OrderBook.csproj", "{CBD97ABF-B5D1-42D3-A508-64B82D1DE649}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBook.Tests", "OrderBook.Tests\OrderBook.Tests.csproj", "{2BB024C7-183B-4AFF-91A8-F05345D15320}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBD97ABF-B5D1-42D3-A508-64B82D1DE649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBD97ABF-B5D1-42D3-A508-64B82D1DE649}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBD97ABF-B5D1-42D3-A508-64B82D1DE649}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBD97ABF-B5D1-42D3-A508-64B82D1DE649}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BB024C7-183B-4AFF-91A8-F05345D15320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BB024C7-183B-4AFF-91A8-F05345D15320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BB024C7-183B-4AFF-91A8-F05345D15320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BB024C7-183B-4AFF-91A8-F05345D15320}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

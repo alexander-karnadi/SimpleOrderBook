@@ -11,8 +11,8 @@ namespace OrderBook
     
     public sealed class OrderBookPrinter : IOrderBookPrinter
     {
-        private IDictionary<string, HashSet<int>> _lastTopBuy = new Dictionary<string, HashSet<int>>();
-        private IDictionary<string, HashSet<int>> _lastTopSell = new Dictionary<string, HashSet<int>>();
+        private readonly IDictionary<string, HashSet<int>> _lastTopBuy = new Dictionary<string, HashSet<int>>();
+        private readonly IDictionary<string, HashSet<int>> _lastTopSell = new Dictionary<string, HashSet<int>>();
         private readonly int _level;
 
         public OrderBookPrinter(int level)
@@ -27,13 +27,17 @@ namespace OrderBook
             var latestTopBuyHash = latestTopBuy.Select(_ => _.GetHashCode()).ToHashSet();
             var latestTopSellHash = latestTopSell.Select(_ => _.GetHashCode()).ToHashSet();
 
-            if (latestTopBuyHash.SetEquals(_lastTopBuy) && latestTopSellHash.SetEquals(_lastTopSell))
+            if (_lastTopBuy.ContainsKey(orderBook.Symbol)
+                && _lastTopSell.ContainsKey(orderBook.Symbol)
+                && latestTopBuyHash.SetEquals(_lastTopBuy[orderBook.Symbol])
+                && latestTopSellHash.SetEquals(_lastTopSell[orderBook.Symbol])
+            )
             {
                 return string.Empty;
             }
 
-            _lastTopBuy = latestTopBuyHash;
-            _lastTopSell = latestTopSellHash;
+            _lastTopBuy[orderBook.Symbol] = latestTopBuyHash;
+            _lastTopSell[orderBook.Symbol] = latestTopSellHash;
             
             var stringBuilder = new StringBuilder();
             stringBuilder
